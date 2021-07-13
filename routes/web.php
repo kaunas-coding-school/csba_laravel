@@ -21,19 +21,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Bandymas::class, 'testas']);
 
-Route::get('/object', function () {
-    return \App\Models\TodoItem::query()->first();
-});
-Route::get('/string', function () {
-    return "Bandymas labas";
-});
-Route::get('/array', function () {
-    return ["itemas" => ["kitas"=>"ats"]];
-});
+Route::get('/contacts', [ContactController::class, 'list']); // Gauna ir renderina sarasa
+Route::get('/contact', [ContactController::class, 'formView']); // renderina tuscia forma naujam irasui kurti
+Route::patch('/contact', [ContactController::class, 'store']); // Is formos gautus duomenis saugo i DB
+Route::get('/contact/{contactMessage}', [ContactController::class, 'show'])->where('contactMessage','[0-9]+'); // atvaizduoja template viena irasa
+Route::get('/contact/{contactMessage}/edit', [ContactController::class, 'edit']); // Renderina Edit forma su duomenimis
+Route::patch('/contact', [ContactController::class, 'update']); // Atnaujina is redagavimo formos siunciamus duomenis pagal ID
+Route::delete('/contact/{contactMessage}', [ContactController::class, 'delete']); // Salina Irasa is DB
 
-Route::get('/contacts', [ContactController::class, 'formView']);
 
-Route::get('/contact/{contactMessage}', [ContactController::class, 'show'])->where('contactMessage','[0-9]+');
 Route::get('/contact/{name}', [ContactController::class, 'showByEmail'])->where('name','[a-zA-Z]+');
 
 Route::get('/contact/{name}/test/{test}', [ContactController::class, 'duParametrai']);

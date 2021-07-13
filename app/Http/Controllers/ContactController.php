@@ -25,12 +25,19 @@ class ContactController extends Controller
 
     public function show(ContactMessage $contactMessage)
     {
-        return view('contactForm', $contactMessage);
+        return view('contactForm', ['item' => $contactMessage, 'editable' => true]);
+    }
+
+    public function edit(ContactMessage $contactMessage)
+    {
+        return view('contactForm', ['item' => $contactMessage, 'editable' => true]);
     }
 
     public function showByEmail($name)
     {
-        return view('viewData', ['name' => $name]);
+        $contact = ContactMessage::query()->where('name', $name)->first();
+
+        return view('viewData', $contact);
     }
 
     public function duParametrai($name, $test)
