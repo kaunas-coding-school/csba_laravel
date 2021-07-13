@@ -25,6 +25,16 @@ class ContactController extends Controller
 
     public function show(ContactMessage $contactMessage)
     {
-        return view('viewData', $contactMessage);
+        return view('contactForm', $contactMessage);
+    }
+
+    public function showByEmail($name)
+    {
+        return view('viewData', ['name' => $name]);
+    }
+
+    public function duParametrai($name, $test)
+    {
+        return $name . ' - ' . $test;
     }
 }

@@ -1,3 +1,3 @@
-<div>{{$name}}</div>
-<div>{{$email}}</div>
-<div>{{$message}}</div>
+<div>{{$name ?? ''}}</div>
+<div>{{$email ?? ''}}</div>
+<div>{{$message ?? ''}}</div>

@@ -32,4 +32,8 @@ Route::get('/array', function () {
 });
 
 Route::get('/contacts', [ContactController::class, 'formView']);
-Route::get('/contact/{contactMessage}', [ContactController::class, 'show']);
+
+Route::get('/contact/{contactMessage}', [ContactController::class, 'show'])->where('contactMessage','[0-9]+');
+Route::get('/contact/{name}', [ContactController::class, 'showByEmail'])->where('name','[a-zA-Z]+');
+
+Route::get('/contact/{name}/test/{test}', [ContactController::class, 'duParametrai']);
