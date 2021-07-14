@@ -13,7 +13,7 @@
 
         <div class="{{$item->status}}">
             <input type="checkbox"> {{ $item->title }} [{{$item->description}}] - {{$item->status}}
-            <a href="{{ route('todo.edit', ['todoItem' => $item->id])  }}">
+            <a href="{{ route('todo.edit', $item->id)  }}">
                 <i class='bx bxs-edit-alt'></i>
             </a>
             <a href="{{ route('todo.done', ['todoItem' => $item->id])  }}">
