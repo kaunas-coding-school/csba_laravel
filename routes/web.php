@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Bandymas;
+use App\Http\Controllers\TodoController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +19,10 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/', [Bandymas::class, 'testas']);
+Route::get('/', [TodoController::class, 'list'])->name('todo.list');
+Route::get('/todo/{todoItem}/done', [TodoController::class, 'done'])->name('todo.done');
+Route::get('/todo/{todoItem}/edit', [TodoController::class, 'edit'])->name('todo.edit');
+Route::put('/todo/{todoItem}', [TodoController::class, 'update'])->name('todo.update');
 
 Route::get('/contacts', [ContactController::class, 'list']); // Gauna ir renderina sarasa
 Route::get('/contact', [ContactController::class, 'formView']); // renderina tuscia forma naujam irasui kurti
