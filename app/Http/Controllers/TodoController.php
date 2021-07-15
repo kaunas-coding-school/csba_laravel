@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\TodoItem;
 use Illuminate\Http\Request;
+use App\Managers\TodoItemsManager;
 
 class TodoController extends Controller
 {
+    public function __construct(private TodoItemsManager $todoManager)
+    {
+    }
+
     public function list(Request $request)
     {
-        $newTodo = new TodoItem();
-        $newTodo->title = ("Pavadinimas ".random_int(1, 999));
-        $newTodo->description = ("Aprasymas. ".random_int(1, 999));
-        $newTodo->status = (TodoItem::STATE_NEW);
-
-        $newTodo->save();
-
-        $items = TodoItem::all();
+        if ($request->get('new') === 'true') {
+            $items = $this->todoManager->getNewAll();
+        } else {
+            $items = $this->todoManager->getDoneAll();
+        }
 
         return view('list', ['list' => $items]);
     }
