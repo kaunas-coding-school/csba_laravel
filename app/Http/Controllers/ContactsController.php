@@ -42,7 +42,7 @@ class ContactsController extends Controller
 
     public function destroy(ContactMessage $contact)
     {
-        $contact->delete();
+        $this->manager->delete($contact);
         return redirect(route('contacts.index'));
     }
 }

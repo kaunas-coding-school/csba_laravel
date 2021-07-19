@@ -21,4 +21,9 @@ class TodoItemsManager
     {
         return $this->repository->getWithStatus(TodoItem::STATE_DONE);
     }
+
+    public function delete(TodoItem $todoItem): void
+    {
+        $this->repository->delete($todoItem);
+    }
 }
