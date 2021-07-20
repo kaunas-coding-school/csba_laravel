@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAddressRequest;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class AddressController extends Controller
 {
@@ -13,7 +14,7 @@ class AddressController extends Controller
         return Address::all();
     }
 
-    public function store(StoreAddressRequest $request)
+    public function store(Request $request)
     {
         try {
             $rules = (new StoreAddressRequest())->rules();
@@ -21,6 +22,8 @@ class AddressController extends Controller
 
             $address = Address::factory()->create($validatedData);
             $address->save();
+        } catch (ValidationException $e) {
+            return ['error' => $e->errors()];
         } catch (\Exception $e) {
             return ['error' => $e->getMessage()];
         }

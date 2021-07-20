@@ -10,7 +10,7 @@ class ContactsController extends Controller
     public function index()
     {
         $list = ContactMessage::all();
-        return view('contacts.index', ['list' => $list]);
+        return view('contacts.index', ['list' => $list, 'function_a_state' => config('test.funkcija-a')]);
     }
 
     public function create()

@@ -26,4 +26,9 @@ class TodoItemsManager
     {
         $this->repository->delete($todoItem);
     }
+
+    public function removeDoneItems(): void
+    {
+        TodoItem::query()->where('status', TodoItem::STATE_DONE)->delete();
+    }
 }

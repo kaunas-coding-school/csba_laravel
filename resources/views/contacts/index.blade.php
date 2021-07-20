@@ -11,11 +11,13 @@
             <a href="{{ route('contacts.edit', $item->id)  }}">
                 [Edit]
             </a>
+            @if($function_a_state)
             <form action="{{ route('contacts.destroy', ['contact' => $item->id]) }}" method="POST">
                 @method('DELETE')
                 @csrf
                 <input type="submit" value="Destroy">
             </form>
+            @endif
         </div>
 
     @endforeach
