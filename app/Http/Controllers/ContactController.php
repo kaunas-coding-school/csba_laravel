@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
+use App\Services\ModifyString;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -14,18 +15,29 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
-        $message = new ContactMessage();
-        $message->name = $request->get('name');
-        $message->email = $request->get('email');
-        $message->message = $request->get('message');
+        $msg = $request->get('message');
+
+        if ($request->get('modifikuoti')){
+            $modifyString = new ModifyString();
+            $msg = $modifyString->modify($msg);
+        }
+
+        $message = new ContactMessage(
+            [
+                'name'    => $request->get('name'),
+                'email'   => $request->get('email'),
+                'message' => $msg,
+            ]
+        );
         $message->save();
 
-        return $this->success();
+        return $message;
     }
 
     public function show(ContactMessage $contactMessage)
     {
-        return view('contactForm', ['item' => $contactMessage, 'editable' => true]);
+        return $contactMessage;
+//        return view('contactForm', ['item' => $contactMessage, 'editable' => true]);
     }
 
     public function edit(ContactMessage $contactMessage)
@@ -42,6 +54,6 @@ class ContactController extends Controller
 
     public function duParametrai($name, $test)
     {
-        return $name . ' - ' . $test;
+        return $name.' - '.$test;
     }
 }

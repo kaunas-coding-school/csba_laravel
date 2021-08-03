@@ -30,7 +30,11 @@ Route::resource('/contacts', ContactsController::class);
 Route::get('/contact/list', [ContactController::class, 'list']); // Gauna ir renderina sarasa
 Route::get('/contact', [ContactController::class, 'formView']); // renderina tuscia forma naujam irasui kurti
 Route::patch('/contact', [ContactController::class, 'store']); // Is formos gautus duomenis saugo i DB
-Route::get('/contact/{contactMessage}', [ContactController::class, 'show'])->where('contactMessage','[0-9]+'); // atvaizduoja template viena irasa
+
+Route::get('/contact/{contactMessage}', [ContactController::class, 'show'])
+    ->where('contactMessage','[0-9]+')
+    ->name('gauti_zinute'); // atvaizduoja template viena irasa
+
 Route::get('/contact/{contactMessage}/edit', [ContactController::class, 'edit']); // Renderina Edit forma su duomenimis
 Route::patch('/contact', [ContactController::class, 'update']); // Atnaujina is redagavimo formos siunciamus duomenis pagal ID
 Route::delete('/contact/{contactMessage}', [ContactController::class, 'delete']); // Salina Irasa is DB
